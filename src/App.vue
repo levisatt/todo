@@ -1,28 +1,47 @@
 <template>
   <div id="app">
-    <!--<img alt="Vue logo" src="https://i.imgur.com/KpfRRdc.png">-->
-    <list :items="todos"></list>
+    <new-item @add-item="addItem" />
+    <list :items="todos" @delete="deleteItem"></list>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import List from './components/list.vue'
+import NewItem from "./components/newItem"
 
 export default {
   name: 'app',
   components: {
+    NewItem,
     List,
     HelloWorld,
   },
 
   data:()=> ({
     message:'echo echo',
-    todos:[
-      { message: 'Foo'},
-      { message: 'Bar'},
-    ],
-  })
+    todos:[],
+  }),
+
+  methods: {
+    deleteItem(index){
+      this.todos.splice(index, 1)
+      this.updateStorage()
+    },
+
+    addItem(item){
+      this.todos.push({...item})
+      this.updateStorage()
+    },
+
+    updateStorage(){
+      localStorage.setItem('todos', JSON.stringify(this.todos))
+    }
+  },
+
+  mounted(){
+    this.todos = JSON.parse(localStorage.getItem('todos')) || []
+  }
 
 }
 </script>
