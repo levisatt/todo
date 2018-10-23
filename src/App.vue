@@ -1,18 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!--<img alt="Vue logo" src="https://i.imgur.com/KpfRRdc.png">-->
+    <list :items="todos"></list>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import List from './components/list.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    List,
+    HelloWorld,
+  },
+
+  data:()=> ({
+    message:'echo echo',
+    todos:[
+      { message: 'Foo'},
+      { message: 'Bar'},
+    ],
+  })
+
 }
 </script>
 
